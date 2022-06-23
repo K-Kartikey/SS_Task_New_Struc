@@ -29,17 +29,17 @@ class bookLinks {
 
     newBook(req:Request,res:Response){
     if(!req.body.bookName){
-        res.send("Content cannot be empty.");
+        res.json({error:"Content cannot be empty."});
     }
     else{
         const response=req.body;
         Book.create(response)
-         .then((data)=>{
-            console.log("Hello from newStruc");
-            res.send(data);
+         .then(()=>{
+            // console.log("Hello from newStruc");
+            return res.send({msg:"Created New Record",err:"No"});
          })
          .catch((err)=>{
-            res.send(err);
+            return res.send({err:"yes"});
          });
     }
     }
