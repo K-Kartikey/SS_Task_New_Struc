@@ -5,11 +5,9 @@ class bookLinks {
    getAll(req:Request,res:Response){
     Book.findAll()
     .then((data)=>{
-        console.log("Hello from newStruc");
         res.send(data);
      })
      .catch((err)=>{
-        console.log(err);
         res.send(err);
      }) 
     }
@@ -18,7 +16,7 @@ class bookLinks {
     const id=req.params.id;
     Book.findByPk(id)
      .then((data)=>{
-        console.log("Hello from newStruc");
+        
         res.send(data);
      })
      .catch((err)=>{
@@ -29,17 +27,18 @@ class bookLinks {
 
     newBook(req:Request,res:Response){
     if(!req.body.bookName){
+        console.log("1st if in newbook from newStruc");
+
         res.json({error:"Content cannot be empty."});
     }
     else{
         const response=req.body;
         Book.create(response)
          .then(()=>{
-            // console.log("Hello from newStruc");
-            return res.send({msg:"Created New Record",err:"No"});
+            res.send({msg:"Created New Record",err:"No"});
          })
          .catch((err)=>{
-            return res.send({err:"yes"});
+            res.send({err:"error in creating"});
          });
     }
     }
@@ -54,13 +53,12 @@ class bookLinks {
         Book.update(response,{
             where: {id:id}
         })
-         .then((num)=>{
-            if(Number(num)===1){
-                console.log("Hello from newStruc");
-                res.send("Record updated Sucessfully.")
+         .then((num:[affectedCount:number])=>{
+            if(Number(num)=== 1 ){
+                res.send({status:"Record updated Sucessfully."})
             }
             else{
-                res.send("Already updated the record or no record found for that id.")
+                res.send({status:"Already updated the record or no record found for that id."})
             }
          })
          .catch((err)=>{
@@ -75,12 +73,11 @@ class bookLinks {
         where: {id:id}
     })
      .then((num)=>{
-        if(+num===1){
-            console.log("Hello from newStruc");
-            res.send("Record deleted Sucessfully.")
+        if(num===1){
+            res.send({status:"Record deleted Sucessfully."})
         }
         else{
-            res.send("Already deleted the record or no record found for that id.")
+            res.send({status:"Already deleted the record or no record found for that id."})
         }
      })
      .catch((err)=>{

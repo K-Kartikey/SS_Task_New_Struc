@@ -3,28 +3,28 @@ import bookLinks from './controller'
 const router = express.Router();
 
 router.get(
-    '/',
+    '/book',
     bookLinks.getAll
 );
 
 router.get(
-    '/:id',
+    '/book/:id',
     bookLinks.getId
     
 );
 
 router.post(
-    '/createbook',
+    '/book/create',
     bookLinks.newBook
 );
 
 router.patch(
-    '/update/:id',
+    '/book/update/:id',
     bookLinks.updateBook
 );
 
 router.delete(
-    '/delete/:id',
+    '/book/delete/:id',
     bookLinks.deleteBook
 );
 
