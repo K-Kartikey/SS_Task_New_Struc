@@ -39,6 +39,15 @@ describe('Group to create book',()=>{
         const res= await request(app).post('/book/create').send(book);
         expect(res.body).toHaveProperty("msg","Created New Record");
     })
+
+    test('should have msg and err prop',async ()=>{
+        jest
+         .spyOn(Book,"create")
+         .mockRejectedValueOnce(undefined);
+    
+        const res= await request(app).post('/book/create').send(book);
+        expect(res.body).toHaveProperty("err");
+    })
 })
 
 describe('Group to get book',()=>{
