@@ -24,7 +24,6 @@ describe('Group to create book',()=>{
          .mockResolvedValueOnce(undefined);
  
         const res=await request(app).post("/book/create").send(book);
-        // console.log(mockCreateBookDb);
 
         expect(Book.create).toHaveBeenCalledTimes(1);
     })
@@ -59,7 +58,7 @@ describe('Group to get book',()=>{
     
 
     test('should return all books ',async ()=>{
-        const bookList={"author": "Andy Weir", "bookName": "The Martian", "createdAt": "2022-06-21T18:41:33.000Z", "genre": "Science-Fiction", "id": 2, "ratings": 9, "updatedAt": "2022-06-21T18:41:33.000Z"};
+        const bookList={"author": "Andy Weir"};
         
         jest
          .spyOn(Book,"findAll")
@@ -67,12 +66,11 @@ describe('Group to get book',()=>{
         //So this resolves our request meaning going to the "then" path and then res.send.
 
         const res=await request(app).get('/book');
-        // console.log(res.body);
         expect(res.body).toEqual(bookList);
     })
 
     test('should not return error ',async ()=>{
-        const bookList={"author": "Andy Weir", "bookName": "The Martian", "createdAt": "2022-06-21T18:41:33.000Z", "genre": "Science-Fiction", "id": 2, "ratings": 9, "updatedAt": "2022-06-21T18:41:33.000Z"};
+        const bookList={"author": "Andy Weir"};
         
         jest
          .spyOn(Book,"findAll")
@@ -80,7 +78,6 @@ describe('Group to get book',()=>{
          //So this gives "Rejected Value" as the error and is console logged from the catch statement.
 
         const res=await request(app).get('/book');
-        // console.log(res.body);
         expect(res.body).toEqual({error:"Rejected Value"});
     })
 
